@@ -9,15 +9,15 @@ export class User {
     active: boolean;
 
     constructor(
-        id: number = 0,
         name: string,
         email: string,
         password: string,
         telephone: string,
         document: string,
-        active: boolean
+        active: boolean,
+        id?: number,
     ) {
-        this.id = id;
+        this.id = id ?? 0;
         this.name = name;
         this.email = email;
         this.password = password;
