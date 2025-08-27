@@ -2,7 +2,7 @@ import z from "zod";
 
 import { User } from "../../../domain/models/User";
 import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
-import { IUserRepositoty } from "../../ports/out/user/IUserRepository";
+import { IUserRepository } from "../../ports/out/user/IUserRepository";
 import { IUseCase } from "../IUseCase";
 
 const createUserSchema = z.object({
@@ -18,7 +18,7 @@ type CreateUserInput = z.infer<typeof createUserSchema>;
 
 export class CreateUser implements IUseCase<CreateUserInput, User> {
     constructor(
-        private readonly userRepository: IUserRepositoty,
+        private readonly userRepository: IUserRepository,
         private readonly passwordHasher: IPasswordHasher
     ) { }
 
