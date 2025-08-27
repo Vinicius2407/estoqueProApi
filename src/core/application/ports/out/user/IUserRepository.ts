@@ -1,4 +1,4 @@
-import { User } from "../../../domain/models/User";
+import { User } from "../../../../domain/models/User";
 import { IRepository } from "../IRepository";
 
 export interface IUserRepositoty extends IRepository<User> {

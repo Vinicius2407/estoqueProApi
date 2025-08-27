@@ -1,8 +1,8 @@
 import z from "zod";
 
 import { User } from "../../../domain/models/User";
-import { IPasswordHasher } from "../../repositories/password-hasher/IPasswordHasher";
-import { IUserRepositoty } from "../../repositories/user/IUserRepository";
+import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
+import { IUserRepositoty } from "../../ports/out/user/IUserRepository";
 import { IUseCase } from "../IUseCase";
 
 const createUserSchema = z.object({
