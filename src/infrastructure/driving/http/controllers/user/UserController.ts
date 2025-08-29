@@ -9,8 +9,8 @@ import { createUserSchema, signInSchema } from "./UserSchema";
 export class UserController {
     constructor(
         private readonly createUserUseCase: CreateUser,
-        private readonly signInUseCase: SignIn
-    ) { }
+        private readonly signInUseCase: SignIn,
+    ) {}
 
     async create(body: any): Promise<HttpResponse> {
         const data = await validateWithZod(createUserSchema, body);

@@ -10,4 +10,4 @@ export class PasswordHasher implements IPasswordHasher {
         const isMatch = await compare(password, hashedPassword);
         return isMatch;
     }
-} 
+}

@@ -7,20 +7,20 @@ import { usersTable } from "../../database/drizzle/schema";
 import { Pagination } from "../../../../../core/application/ports/out/IRepository";
 
 export class UserRepository implements IUserRepository {
-
     async create(item: User): Promise<User> {
-        const [userDb] = await db.insert(usersTable).values({
-            name: item.name,
-            email: item.email,
-            password: item.password,
-            telephone: item.telephone,
-            document: item.document,
-            active: item.active!,
-        }).returning(
-            {
+        const [userDb] = await db
+            .insert(usersTable)
+            .values({
+                name: item.name,
+                email: item.email,
+                password: item.password,
+                telephone: item.telephone,
+                document: item.document,
+                active: item.active!,
+            })
+            .returning({
                 id: usersTable.id,
-            }
-        );
+            });
 
         item.id = userDb!.id;
 
@@ -28,15 +28,17 @@ export class UserRepository implements IUserRepository {
     }
 
     async update(item: User): Promise<User> {
-        const [user] = await db.update(usersTable).set({
-            name: item.name,
-            email: item.email,
-            telephone: item.telephone,
-            document: item.document,
-            active: item.active,
-        }).where(
-            eq(usersTable.id, item.id)
-        ).returning();
+        const [user] = await db
+            .update(usersTable)
+            .set({
+                name: item.name,
+                email: item.email,
+                telephone: item.telephone,
+                document: item.document,
+                active: item.active,
+            })
+            .where(eq(usersTable.id, item.id))
+            .returning();
 
         if (!user || user.id === undefined || user.id !== item.id) {
             throw new Error("User not found");
@@ -46,9 +48,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async delete(id: number): Promise<void> {
-        const [deleted] = await db.delete(usersTable).where(
-            eq(usersTable.id, id)
-        ).returning({ id: usersTable.id });
+        const [deleted] = await db.delete(usersTable).where(eq(usersTable.id, id)).returning({ id: usersTable.id });
 
         if (!deleted || deleted.id === undefined || deleted.id !== id) {
             throw new Error("User not found");
@@ -59,7 +59,7 @@ export class UserRepository implements IUserRepository {
 
     async findById(id: number): Promise<User | null> {
         const userDb = await db.query.usersTable.findFirst({
-            where: eq(usersTable.id, id)
+            where: eq(usersTable.id, id),
         });
 
         if (!userDb) {
@@ -71,26 +71,24 @@ export class UserRepository implements IUserRepository {
 
     async findByEmailAndPassword(email: string, password: string): Promise<User | null> {
         const userDb = await db.query.usersTable.findFirst({
-            where: and(
-                eq(usersTable.email, email),
-                eq(usersTable.password, password)
-            )
+            where: and(eq(usersTable.email, email), eq(usersTable.password, password)),
         });
 
         if (!userDb) {
             return null;
         }
 
-        return new User({
-            ...userDb
-        }, userDb.id);
+        return new User(
+            {
+                ...userDb,
+            },
+            userDb.id,
+        );
     }
 
     async findByEmail(email: string): Promise<User | null> {
         const userDb = await db.query.usersTable.findFirst({
-            where: and(
-                eq(usersTable.email, email),
-            )
+            where: and(eq(usersTable.email, email)),
         });
 
         if (!userDb) {
@@ -100,16 +98,16 @@ export class UserRepository implements IUserRepository {
         return new User({ ...userDb }, userDb.id);
     }
 
-    async findAll(pagination: { itemPerPage: number, page: number }): Promise<Pagination<User>> {
+    async findAll(pagination: { itemPerPage: number; page: number }): Promise<Pagination<User>> {
         const usersDb = await db.query.usersTable.findMany({});
-        const users: User[] = usersDb.map(userDb => new User({ ...userDb }, userDb.id));
+        const users: User[] = usersDb.map((userDb) => new User({ ...userDb }, userDb.id));
 
         return new Pagination<User>(
             pagination.itemPerPage,
             pagination.page,
             users.length,
             Math.ceil(users.length / pagination.itemPerPage),
-            users.slice((pagination.page - 1) * pagination.itemPerPage, pagination.page * pagination.itemPerPage)
+            users.slice((pagination.page - 1) * pagination.itemPerPage, pagination.page * pagination.itemPerPage),
         );
     }
 }

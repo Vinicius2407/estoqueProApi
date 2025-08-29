@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 import { FastifyServer } from "./src/infrastructure/driving/http/fastify/server";
 const server = new FastifyServer();

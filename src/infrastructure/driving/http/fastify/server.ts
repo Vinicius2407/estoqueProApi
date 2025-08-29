@@ -3,12 +3,12 @@ import { userController } from "../../../../main/bootstrap";
 import { mainRouter } from "./routes";
 
 export class FastifyServer {
-    private app = fastify({logger: true});
+    private app = fastify({ logger: true });
 
-    async start(port: number){
+    async start(port: number) {
         const controllers = {
-            userController
-        }
+            userController,
+        };
 
         this.app.register(mainRouter, { controllers });
 
@@ -16,10 +16,9 @@ export class FastifyServer {
             await this.app.listen({ port });
             console.log(`Server running at http://localhost:${port}`);
         } catch (err) {
-            console.error('Error starting server:', err);
+            console.error("Error starting server:", err);
             await this.app.close();
             process.exit(1);
         }
-            
     }
 }

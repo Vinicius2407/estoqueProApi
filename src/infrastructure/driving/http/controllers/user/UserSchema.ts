@@ -11,7 +11,6 @@ export const createUserSchema = z.object({
 
 export type CreateUserInput = z.infer<typeof createUserSchema>;
 
-
 export const signInSchema = z.object({
     email: z.email("Email inválido"),
     password: z.string().min(8, "Senha precisa ter no mínimo 8 caracteres"),

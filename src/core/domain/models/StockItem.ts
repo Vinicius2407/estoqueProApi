@@ -6,14 +6,7 @@ export class StockItem {
     sku: string | undefined;
     createdAt: Date;
 
-    constructor(
-        id: number = 0,
-        createdAt: Date,
-        color?: string,
-        size?: string,
-        quantity: number = 0,
-        sku?: string,
-    ) {
+    constructor(id: number = 0, createdAt: Date, color?: string, size?: string, quantity: number = 0, sku?: string) {
         this.id = id;
         this.color = color;
         this.size = size;

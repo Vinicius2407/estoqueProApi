@@ -1,4 +1,3 @@
-
 export type CreateUserInput = {
     name: string;
     email: string;
@@ -6,7 +5,7 @@ export type CreateUserInput = {
     telephone: string;
     document: string;
     active?: boolean;
-}
+};
 
 export type CreateUserOutput = {
     id: string;

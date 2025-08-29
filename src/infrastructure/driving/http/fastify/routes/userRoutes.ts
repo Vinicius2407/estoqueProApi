@@ -3,12 +3,12 @@ import { FastifyInstance, FastifyPluginOptions } from "fastify";
 export async function userRoutes(fastify: FastifyInstance, options: FastifyPluginOptions) {
     const userController = options.controllers.userController;
 
-    fastify.post('/user', async (request, reply) => {
+    fastify.post("/user", async (request, reply) => {
         const httpResponse = await userController.create(request.body);
         reply.status(httpResponse.statusCode).send(httpResponse.body);
     });
 
-    fastify.post('/signin', async (request, reply) => {
+    fastify.post("/signin", async (request, reply) => {
         const httpResponse = await userController.signIn(request.body);
         reply.status(httpResponse.statusCode).send(httpResponse.body);
     });

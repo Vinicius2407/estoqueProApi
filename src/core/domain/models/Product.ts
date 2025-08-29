@@ -9,15 +9,7 @@ export class Product {
     Category: Category | undefined;
     createdAt: Date;
 
-    constructor(
-        id: number = 0,
-        name: string,
-        description: string,
-        basePrice: number,
-        categoryId: number,
-        createdAt: Date,
-        Category?: Category
-    ) {
+    constructor(id: number = 0, name: string, description: string, basePrice: number, categoryId: number, createdAt: Date, Category?: Category) {
         this.id = id;
         this.name = name;
         this.description = description;

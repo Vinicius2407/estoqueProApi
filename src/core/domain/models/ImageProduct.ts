@@ -8,13 +8,7 @@ export class ImageProduct {
     inputFileKey: string;
     status: ImageStatus;
 
-    constructor(
-        id: number = 0,
-        productId: number,
-        inputFileKey: string,
-        status: ImageStatus,
-        Product?: Product
-    ) {
+    constructor(id: number = 0, productId: number, inputFileKey: string, status: ImageStatus, Product?: Product) {
         this.id = id;
         this.productId = productId;
         this.inputFileKey = inputFileKey;

@@ -8,8 +8,8 @@ import { CreateUserInput } from "./CreateUserDTO";
 export class CreateUser implements IUseCase<CreateUserInput, User> {
     constructor(
         private readonly userRepository: IUserRepository,
-        private readonly passwordHasher: IPasswordHasher
-    ) { }
+        private readonly passwordHasher: IPasswordHasher,
+    ) {}
 
     async execute(userData: CreateUserInput): Promise<User> {
         if (await this.userRepository.findByEmail(userData.email)) {
@@ -20,8 +20,8 @@ export class CreateUser implements IUseCase<CreateUserInput, User> {
 
         const user = new User({
             ...userData,
-            password
-        })
+            password,
+        });
 
         await this.userRepository.create(user);
 

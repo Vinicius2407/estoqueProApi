@@ -1,4 +1,3 @@
-
 import { InvalidCredentialsError, UserNotFoundError } from "../../../domain/errors/UserError";
 import { IJWT } from "../../ports/out/jwt/IJWT";
 import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
@@ -10,8 +9,8 @@ export class SignIn implements IUseCase<SignInInput, SignInOutput> {
     constructor(
         private readonly userRepository: IUserRepository,
         private readonly jwt: IJWT,
-        private readonly passwordHasher: IPasswordHasher
-    ) { }
+        private readonly passwordHasher: IPasswordHasher,
+    ) {}
 
     async execute(signInData: SignInInput): Promise<SignInOutput> {
         const user = await this.userRepository.findByEmail(signInData.email);
@@ -29,8 +28,8 @@ export class SignIn implements IUseCase<SignInInput, SignInOutput> {
         const token = this.jwt.hash(user.id.toString());
 
         const response: SignInOutput = {
-            accessToken: token
-        }
+            accessToken: token,
+        };
 
         return response;
     }

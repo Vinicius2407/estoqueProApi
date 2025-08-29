@@ -2,15 +2,15 @@ org: byvsp
 service: estoquepro
 
 provider:
-  name: aws
-  region: us-east-1
-  runtime: nodejs22.x
-  architecture: arm64
+    name: aws
+    region: us-east-1
+    runtime: nodejs22.x
+    architecture: arm64
 
 packge:
-  individually: true
+    individually: true
 
 build:
-  esbuild:
-    minify: true
-    sourcemap: false
+    esbuild:
+        minify: true
+        sourcemap: false

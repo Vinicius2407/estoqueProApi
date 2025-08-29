@@ -15,13 +15,7 @@ export class Pagination<T> {
         return this.page > 1;
     }
 
-    constructor(
-        itemPerPage?: number,
-        page?: number,
-        totalItems?: number,
-        totalPages?: number,
-        items?: T[],
-    ) {
+    constructor(itemPerPage?: number, page?: number, totalItems?: number, totalPages?: number, items?: T[]) {
         this.itemPerPage = itemPerPage ?? 0;
         this.page = page ?? 0;
         this.totalItems = totalItems ?? 0;
@@ -32,11 +26,10 @@ export class Pagination<T> {
     }
 }
 
-
 export interface IRepository<T> {
     create(item: T): Promise<T>;
     update(item: T): Promise<T>;
     delete(id: number): Promise<void>;
     findById(id: number): Promise<T | null>;
-    findAll(filter: { itemPerPage: number, page: number }): Promise<Pagination<T>>;
+    findAll(filter: { itemPerPage: number; page: number }): Promise<Pagination<T>>;
 }
