@@ -1,21 +1,9 @@
-import z from "zod";
-
+import { UserAlreadyExistsError } from "../../../domain/errors/UserError";
 import { User } from "../../../domain/models/User";
 import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
 import { IUserRepository } from "../../ports/out/user/IUserRepository";
 import { IUseCase } from "../IUseCase";
-import { validateWithZod } from "../utils/zod-validation";
-
-const createUserSchema = z.object({
-    name: z.string().min(3, "Nome precisa ter no mínimo 3 caracteres"),
-    email: z.email("Email inválido"),
-    password: z.string().min(8, "Senha precisa ter no mínimo 8 caracteres"),
-    telephone: z.string().min(10, "Telefone inválido"),
-    document: z.string().min(11, "Documento inválido"),
-    active: z.boolean().optional(),
-});
-
-type CreateUserInput = z.infer<typeof createUserSchema>;
+import { CreateUserInput } from "./CreateUserDTO";
 
 export class CreateUser implements IUseCase<CreateUserInput, User> {
     constructor(
@@ -24,22 +12,16 @@ export class CreateUser implements IUseCase<CreateUserInput, User> {
     ) { }
 
     async execute(userData: CreateUserInput): Promise<User> {
-        const data = await validateWithZod(createUserSchema, userData);
-
-        if (await this.userRepository.findByEmail(data.email)) {
-            throw new Error("Usuário com este email já existe.");
+        if (await this.userRepository.findByEmail(userData.email)) {
+            throw new UserAlreadyExistsError();
         }
 
-        const password = await this.passwordHasher.hash(data.password);
+        const password = await this.passwordHasher.hash(userData.password);
 
-        const user = new User(
-            data.name,
-            data.email,
-            password,
-            data.telephone,
-            data.document,
-            data.active ?? true
-        ) 
+        const user = new User({
+            ...userData,
+            password
+        })
 
         await this.userRepository.create(user);
 

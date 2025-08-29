@@ -1,28 +1,15 @@
 
 export class User {
     id: number;
-    name: string;
-    email: string;
-    password: string;
-    telephone: string;
-    document: string;
-    active: boolean;
+    name: string = "";
+    email: string = "";
+    password: string = "";
+    telephone: string = "";
+    document: string = "";
+    active?: boolean;
 
-    constructor(
-        name: string,
-        email: string,
-        password: string,
-        telephone: string,
-        document: string,
-        active: boolean,
-        id?: number,
-    ) {
+    constructor(props: Omit<User, 'id'>, id?: number) {
+        Object.assign(this, props);
         this.id = id ?? 0;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.telephone = telephone;
-        this.document = document;
-        this.active = active;
     }
 }
