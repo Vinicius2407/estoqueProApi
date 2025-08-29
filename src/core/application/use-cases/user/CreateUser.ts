@@ -4,6 +4,7 @@ import { User } from "../../../domain/models/User";
 import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
 import { IUserRepository } from "../../ports/out/user/IUserRepository";
 import { IUseCase } from "../IUseCase";
+import { validateWithZod } from "../utils/zod-validation";
 
 const createUserSchema = z.object({
     name: z.string().min(3, "Nome precisa ter no mínimo 3 caracteres"),
@@ -23,11 +24,7 @@ export class CreateUser implements IUseCase<CreateUserInput, User> {
     ) { }
 
     async execute(userData: CreateUserInput): Promise<User> {
-        const {success, error, data} = await createUserSchema.safeParseAsync(userData);
-
-        if (!success) {
-            throw new Error(`Validação falhou: ${error.issues.map(issue => issue.message).join(", ")}`);
-        }
+        const data = await validateWithZod(createUserSchema, userData);
 
         if (await this.userRepository.findByEmail(data.email)) {
             throw new Error("Usuário com este email já existe.");

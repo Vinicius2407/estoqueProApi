@@ -7,4 +7,9 @@ export async function userRoutes(fastify: FastifyInstance, options: FastifyPlugi
         const httpResponse = await userController.create(request.body);
         reply.status(httpResponse.statusCode).send(httpResponse.body);
     });
+
+    fastify.post('/signin', async (request, reply) => {
+        const httpResponse = await userController.signIn(request.body);
+        reply.status(httpResponse.statusCode).send(httpResponse.body);
+    });
 }
