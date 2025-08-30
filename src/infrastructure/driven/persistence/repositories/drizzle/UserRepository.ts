@@ -13,18 +13,14 @@ export class UserRepository implements IUserRepository {
             .values({
                 name: item.name,
                 email: item.email,
-                password: item.password,
+                password: item.getPasswordHash(),
                 telephone: item.telephone,
                 document: item.document,
                 active: item.active!,
             })
-            .returning({
-                id: usersTable.id,
-            });
+            .returning();
 
-        item.id = userDb!.id;
-
-        return item;
+        return User.recreate({ ...userDb }, userDb.id);
     }
 
     async update(item: User): Promise<User> {
@@ -66,7 +62,7 @@ export class UserRepository implements IUserRepository {
             return null;
         }
 
-        return new User({ ...userDb }, userDb.id);
+        return User.recreate({ ...userDb }, userDb.id);
     }
 
     async findByEmailAndPassword(email: string, password: string): Promise<User | null> {
@@ -78,12 +74,7 @@ export class UserRepository implements IUserRepository {
             return null;
         }
 
-        return new User(
-            {
-                ...userDb,
-            },
-            userDb.id,
-        );
+        return User.recreate({ ...userDb }, userDb.id,);
     }
 
     async findByEmail(email: string): Promise<User | null> {
@@ -95,12 +86,12 @@ export class UserRepository implements IUserRepository {
             return null;
         }
 
-        return new User({ ...userDb }, userDb.id);
+        return User.recreate({ ...userDb }, userDb.id);
     }
 
     async findAll(pagination: { itemPerPage: number; page: number }): Promise<Pagination<User>> {
         const usersDb = await db.query.usersTable.findMany({});
-        const users: User[] = usersDb.map((userDb) => new User({ ...userDb }, userDb.id));
+        const users: User[] = usersDb.map((userDb) => User.recreate({ ...userDb }, userDb.id));
 
         return new Pagination<User>(
             pagination.itemPerPage,

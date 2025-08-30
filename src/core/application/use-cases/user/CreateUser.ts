@@ -3,28 +3,31 @@ import { User } from "../../../domain/models/User";
 import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
 import { IUserRepository } from "../../ports/out/user/IUserRepository";
 import { IUseCase } from "../IUseCase";
-import { CreateUserInput } from "./CreateUserDTO";
+import { CreateUserInput, CreateUserOutput } from "./CreateUserDTO"; // Importando o DTO de saída
 
-export class CreateUser implements IUseCase<CreateUserInput, User> {
+export class CreateUser implements IUseCase<CreateUserInput, CreateUserOutput> {
     constructor(
         private readonly userRepository: IUserRepository,
         private readonly passwordHasher: IPasswordHasher,
-    ) {}
+    ) { }
 
-    async execute(userData: CreateUserInput): Promise<User> {
+    async execute(userData: CreateUserInput): Promise<CreateUserOutput> {
         if (await this.userRepository.findByEmail(userData.email)) {
             throw new UserAlreadyExistsError();
         }
 
-        const password = await this.passwordHasher.hash(userData.password);
+        const user = await User.create(userData, this.passwordHasher);
 
-        const user = new User({
-            ...userData,
-            password,
-        });
+        try {
+            await this.userRepository.create(user);
+        } catch (error) {
+            throw error;
+        }
 
-        await this.userRepository.create(user);
-
-        return user;
+        return {
+            id: user.id.toString(),
+            name: user.name,
+            email: user.email,
+        };
     }
 }

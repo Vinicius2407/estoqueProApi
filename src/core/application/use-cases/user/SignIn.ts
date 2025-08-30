@@ -13,18 +13,21 @@ export class SignIn implements IUseCase<SignInInput, SignInOutput> {
     ) {}
 
     async execute(signInData: SignInInput): Promise<SignInOutput> {
+        // 1. Lógica de Aplicação: encontrar o usuário
         const user = await this.userRepository.findByEmail(signInData.email);
 
         if (!user) {
             throw new UserNotFoundError();
         }
 
-        const isPasswordValid = await this.passwordHasher.compare(signInData.password, user.password);
+        // 2. Delegar a comparação da senha para o Modelo de Domínio
+        const isPasswordValid = await user.comparePassword(signInData.password, this.passwordHasher);
 
         if (!isPasswordValid) {
             throw new InvalidCredentialsError();
         }
 
+        // 3. Lógica de Aplicação: gerar o token de acesso
         const token = this.jwt.hash(user.id.toString());
 
         const response: SignInOutput = {
