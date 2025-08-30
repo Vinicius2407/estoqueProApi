@@ -1,7 +1,6 @@
 import { IPasswordHasher } from "../../application/ports/out/password-hasher/IPasswordHasher";
 import { UserError } from "../errors/UserError";
 
-// As propriedades que vêm de fora para criar um usuário
 type UserCreationProps = {
     name: string;
     email: string;
@@ -11,7 +10,6 @@ type UserCreationProps = {
     active?: boolean;
 }
 
-// As propriedades que definem o estado de um usuário
 type UserProps = Omit<UserCreationProps, "password"> & {
     passwordHash: string;
 }

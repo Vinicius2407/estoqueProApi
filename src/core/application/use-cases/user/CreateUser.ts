@@ -1,7 +1,7 @@
 import { UserAlreadyExistsError } from "../../../domain/errors/UserError";
 import { User } from "../../../domain/models/User";
 import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
-import { IUserRepository } from "../../ports/out/user/IUserRepository";
+import { IUserRepository } from "../../ports/out/repositories/user/IUserRepository";
 import { IUseCase } from "../IUseCase";
 import { CreateUserInput, CreateUserOutput } from "./CreateUserDTO"; // Importando o DTO de saída
 

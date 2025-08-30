@@ -1,7 +1,7 @@
 import { InvalidCredentialsError, UserNotFoundError } from "../../../domain/errors/UserError";
 import { IJWT } from "../../ports/out/jwt/IJWT";
 import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
-import { IUserRepository } from "../../ports/out/user/IUserRepository";
+import { IUserRepository } from "../../ports/out/repositories/user/IUserRepository";
 import { IUseCase } from "../IUseCase";
 import { SignInInput, SignInOutput } from "./SignInDTO";
 
