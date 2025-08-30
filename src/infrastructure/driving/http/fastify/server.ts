@@ -1,15 +1,19 @@
 import fastify from "fastify";
 import { userController } from "../../../../main/bootstrap";
 import { mainRouter } from "./routes";
+import { JWTToken } from "../../../driven/services/JWTToken";
+import { makeGlobalAuthHook } from "./hooks/globalAuthHook";
 
 export class FastifyServer {
     private app = fastify({ logger: true });
 
     async start(port: number) {
         const controllers = {
+            jwtService: JWTToken,
             userController,
         };
 
+        this.app.addHook("preHandler", makeGlobalAuthHook(new JWTToken()));
         this.app.register(mainRouter, { controllers });
 
         try {
