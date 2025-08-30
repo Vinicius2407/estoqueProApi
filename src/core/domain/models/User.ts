@@ -8,11 +8,11 @@ type UserCreationProps = {
     telephone: string;
     document: string;
     active?: boolean;
-}
+};
 
 type UserProps = Omit<UserCreationProps, "password"> & {
     passwordHash: string;
-}
+};
 
 export class User {
     public readonly id: number;

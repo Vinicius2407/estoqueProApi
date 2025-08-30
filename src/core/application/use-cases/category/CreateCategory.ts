@@ -5,9 +5,7 @@ import { IUseCase } from "../IUseCase";
 import { CreateCategoryInput, CreateCategoryOutput } from "./CreateCategoryDTO";
 
 export class CreateCategory implements IUseCase<CreateCategoryInput, CreateCategoryOutput> {
-    constructor(
-        private readonly categoryRepository: ICategoryRepository,
-    ) { }
+    constructor(private readonly categoryRepository: ICategoryRepository) {}
     async execute(input: CreateCategoryInput): Promise<CreateCategoryOutput> {
         try {
             const category = Category.create(input.name);

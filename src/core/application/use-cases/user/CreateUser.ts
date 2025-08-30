@@ -9,7 +9,7 @@ export class CreateUser implements IUseCase<CreateUserInput, CreateUserOutput> {
     constructor(
         private readonly userRepository: IUserRepository,
         private readonly passwordHasher: IPasswordHasher,
-    ) { }
+    ) {}
 
     async execute(userData: CreateUserInput): Promise<CreateUserOutput> {
         if (await this.userRepository.findByEmail(userData.email)) {

@@ -1,4 +1,3 @@
-
 export type CreateProductInput = {
     name: string;
     description: string;

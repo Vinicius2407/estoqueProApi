@@ -6,12 +6,12 @@ type ProductCreationProps = {
     description: string;
     basePrice: number;
     categoryId: number;
-}
+};
 
 type ProductProps = ProductCreationProps & {
     createdAt: Date;
     Category?: Category;
-}
+};
 
 export class Product {
     id: number;

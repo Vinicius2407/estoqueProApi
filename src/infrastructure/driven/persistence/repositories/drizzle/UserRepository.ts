@@ -92,7 +92,7 @@ export class UserRepository implements IUserRepository {
                 return null;
             }
 
-            return User.recreate({ ...userDb }, userDb.id,);
+            return User.recreate({ ...userDb }, userDb.id);
         } catch (error) {
             throw new RepositoryError("Erro ao buscar usuário por email e senha: " + (error instanceof Error ? error.message : String(error)));
         }
