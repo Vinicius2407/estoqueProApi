@@ -5,12 +5,14 @@ import { validateWithZod } from "@/infrastructure/utils/zod-validation";
 import { conflict, created, ok } from "@/infrastructure/driving/http/Http";
 import { createCategorySchema } from "@/infrastructure/driving/http/controllers/category/CategorySchema";
 import { GetCategoryById } from "@/core/application/use-cases/category/GetCategoryById";
+import { GetCategoryByName } from "@/core/application/use-cases/category/GetCategoryByName";
 
 export class CategoryController {
     constructor(
         private readonly createCategoryUseCase: CreateCategory,
         private readonly getCategoryByIdUseCase: GetCategoryById,
-    ) {}
+        private readonly getCategoryByNameUseCase: GetCategoryByName
+    ) { }
     async create({ body }: FastifyRequest) {
         if (!body) return conflict({ message: "Objeto de cadastro obrigatório" });
 
@@ -39,4 +41,15 @@ export class CategoryController {
 
         return ok({ category });
     }
+
+    async getByName({ query }: FastifyRequest) {
+        if (!query) return conflict({ message: "Nome da categoria obrigatório" });
+
+        const { name } = query as { name: string };
+
+        var categories = await this.getCategoryByNameUseCase.execute({ name });
+
+        return ok({ categories });
+    }
+
 }

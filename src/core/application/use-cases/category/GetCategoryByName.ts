@@ -1,22 +1,20 @@
+
 import { RepositoryError } from "@/core/domain/errors/RepositoryError";
 import { ICategoryRepository } from "@/core/application/ports/out/repositories/category/ICategoryRepository";
 import { IUseCase } from "@/core/application/use-cases/IUseCase";
 import { GetCategoryInput, GetCategoryOutput } from "@/core/application/use-cases/category/GetCategoryByIdDTO";
 
-export class GetCategoryById implements IUseCase<GetCategoryInput, GetCategoryOutput> {
+export class GetCategoryByName implements IUseCase<GetCategoryInput, GetCategoryOutput[]> {
     constructor(private readonly categoryRepository: ICategoryRepository) {}
-    async execute({ id }: GetCategoryInput): Promise<GetCategoryOutput> {
+    async execute({ name }: GetCategoryInput): Promise<GetCategoryOutput[]> {
         try {
-            const category = await this.categoryRepository.findById(id);
+            const category = await this.categoryRepository.findByName(name!);
 
             if (!category) {
-                return {} as GetCategoryOutput;
+                return [] as GetCategoryOutput[];
             }
 
-            return {
-                id: category.id,
-                name: category.name,
-            };
+            return category;
         } catch (error) {
             if (error instanceof RepositoryError) {
                 throw error;

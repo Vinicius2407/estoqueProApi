@@ -6,8 +6,8 @@ export class CategoryError extends Error {
 }
 
 export class CategoryDuplicateError extends CategoryError {
-    constructor() {
-        super("Já existe uma categoria com esse nome.");
+    constructor(name: string) {
+        super(`Já existe uma categoria com esse nome: ${name}.`);
         this.name = "CategoryDuplicateError";
     }
 }

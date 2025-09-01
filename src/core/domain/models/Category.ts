@@ -7,11 +7,11 @@ export class Category {
         this.name = name;
     }
 
-    public static create(name: string, id?: number): Category {
+    public static create(name: string): Category {
         if (!name || name.length < 3) {
             throw new Error("Nome da categoria deve ter pelo menos 3 caracteres.");
         }
-        return new Category(id, name);
+        return new Category(0, name);
     }
 
     public static recreate(id: number, name: string): Category {
