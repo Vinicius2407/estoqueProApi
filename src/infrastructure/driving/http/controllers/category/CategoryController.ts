@@ -54,4 +54,15 @@ export class CategoryController {
         return ok({ categories });
     }
 
+
+    async getByName({ query }: FastifyRequest) {
+        if (!query) return conflict({ message: "Nome da categoria obrigatório" });
+
+        const { name } = query as { name: string };
+
+        var categories = await this.getCategoryByNameUseCase.execute({ name });
+
+        return ok({ categories });
+    }
+
 }
