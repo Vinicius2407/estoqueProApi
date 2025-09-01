@@ -1,8 +1,9 @@
-export type GetCategoryByIdInput = {
-    id: number;
+export type GetCategoryInput = {
+    id?: number;
+    name?: string;
 };
 
-export type GetCategoryByIdOutput = {
+export type GetCategoryOutput = {
     id: number;
     name: string;
 };
