@@ -3,7 +3,7 @@ import { CategoryRepository } from "../../infrastructure/driven/persistence/repo
 import { CategoryController } from "../../infrastructure/driving/http/controllers/category/CategoryController";
 
 export class InitializeCategory {
-    constructor() {
+    static categoryController() {
         const categoryRepository = new CategoryRepository();
         const createCategoryUseCase = new CreateCategory(categoryRepository);
         const categoryController = new CategoryController(createCategoryUseCase);
