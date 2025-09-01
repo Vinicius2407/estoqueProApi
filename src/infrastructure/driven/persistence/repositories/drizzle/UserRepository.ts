@@ -1,11 +1,11 @@
 import { and, eq } from "drizzle-orm";
 
-import { Pagination } from "../../../../../core/application/ports/out/repositories/IRepository";
-import { IUserRepository } from "../../../../../core/application/ports/out/repositories/user/IUserRepository";
-import { RepositoryError } from "../../../../../core/domain/errors/RepositoryError";
-import { User } from "../../../../../core/domain/models/User";
-import { db } from "../../database/drizzle";
-import { usersTable } from "../../database/drizzle/schema";
+import { Pagination } from "@/core/application/ports/out/repositories/IRepository";
+import { IUserRepository } from "@/core/application/ports/out/repositories/user/IUserRepository";
+import { RepositoryError } from "@/core/domain/errors/RepositoryError";
+import { User } from "@/core/domain/models/User";
+import { db } from "@/infrastructure/driven/persistence/database/drizzle";
+import { usersTable } from "@/infrastructure/driven/persistence/database/drizzle/schema";
 
 export class UserRepository implements IUserRepository {
     async create(item: User): Promise<User> {

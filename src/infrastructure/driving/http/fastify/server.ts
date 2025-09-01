@@ -1,8 +1,8 @@
 import fastify from "fastify";
-import { categoryController, userController } from "../../../../main/bootstrap";
-import { mainRouter } from "./routes";
-import { JWTToken } from "../../../driven/services/JWTToken";
-import { makeGlobalAuthHook } from "./hooks/globalAuthHook";
+import { categoryController, userController } from "@/infrastructure/main/bootstrap";
+import { mainRouter } from "@/infrastructure/driving/http/fastify/routes";
+import { JWTToken } from "@/infrastructure/driven/services/JWTToken";
+import { makeGlobalAuthHook } from "@/infrastructure/driving/http/fastify/hooks/globalAuthHook";
 
 export class FastifyServer {
     private app = fastify({ logger: true });

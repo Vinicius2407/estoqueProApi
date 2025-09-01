@@ -1,6 +1,6 @@
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 
-import { IJWT } from "../../../core/application/ports/out/jwt/IJWT";
+import { IJWT } from "@/core/application/ports/out/jwt/IJWT";
 
 export interface IJWTUserpayload {
     sub: string;

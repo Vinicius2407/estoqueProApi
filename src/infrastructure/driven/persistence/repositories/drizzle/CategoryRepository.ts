@@ -1,11 +1,11 @@
 import { like } from "drizzle-orm";
 
-import { ICategoryRepository } from "../../../../../core/application/ports/out/repositories/category/ICategoryRepository";
-import { Pagination } from "../../../../../core/application/ports/out/repositories/IRepository";
-import { RepositoryError } from "../../../../../core/domain/errors/RepositoryError";
-import { Category } from "../../../../../core/domain/models/Category";
-import { db } from "../../database/drizzle";
-import { categoryTable } from "../../database/drizzle/schema";
+import { ICategoryRepository } from "@/core/application/ports/out/repositories/category/ICategoryRepository";
+import { Pagination } from "@/core/application/ports/out/repositories/IRepository";
+import { RepositoryError } from "@/core/domain/errors/RepositoryError";
+import { Category } from "@/core/domain/models/Category";
+import { db } from "@/infrastructure/driven/persistence/database/drizzle";
+import { categoryTable } from "@/infrastructure/driven/persistence/database/drizzle/schema";
 
 export class CategoryRepository implements ICategoryRepository {
     async findByName(name: string): Promise<Category[] | null> {

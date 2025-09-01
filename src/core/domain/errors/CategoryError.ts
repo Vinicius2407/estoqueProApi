@@ -12,3 +12,10 @@ export class CategoryDuplicateError extends CategoryError {
         this.name = "CategoryDuplicateError";
     }
 }
+
+export class CategoryNotFoundError extends CategoryError {
+    constructor() {
+        super("Categoria não encontrada.");
+        this.name = "CategoryNotFoundError";
+    }
+}

@@ -1,9 +1,9 @@
-import { UserAlreadyExistsError } from "../../../domain/errors/UserError";
-import { User } from "../../../domain/models/User";
-import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
-import { IUserRepository } from "../../ports/out/repositories/user/IUserRepository";
-import { IUseCase } from "../IUseCase";
-import { CreateUserInput, CreateUserOutput } from "./CreateUserDTO"; // Importando o DTO de saída
+import { UserAlreadyExistsError } from "@/core/domain/errors/UserError";
+import { User } from "@/core/domain/models/User";
+import { IPasswordHasher } from "@/core/application/ports/out/password-hasher/IPasswordHasher";
+import { IUserRepository } from "@/core/application/ports/out/repositories/user/IUserRepository";
+import { IUseCase } from "@/core/application/use-cases/IUseCase";
+import { CreateUserInput, CreateUserOutput } from "@/core/application/use-cases/user/CreateUserDTO"; // Importando o DTO de saída
 
 export class CreateUser implements IUseCase<CreateUserInput, CreateUserOutput> {
     constructor(

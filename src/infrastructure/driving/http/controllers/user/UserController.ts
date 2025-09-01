@@ -1,10 +1,10 @@
-import { CreateUser } from "../../../../../core/application/use-cases/user/CreateUser";
-import { CreateUserInput } from "../../../../../core/application/use-cases/user/CreateUserDTO";
-import { SignIn } from "../../../../../core/application/use-cases/user/SignIn";
-import { InvalidCredentialsError, UserAlreadyExistsError, UserNotFoundError } from "../../../../../core/domain/errors/UserError";
-import { validateWithZod } from "../../../../utils/zod-validation";
-import { badRequest, conflict, created, HttpResponse, ok, unauthorized } from "../../Http";
-import { createUserSchema, signInSchema } from "./UserSchema";
+import { CreateUser } from "@/core/application/use-cases/user/CreateUser";
+import { CreateUserInput } from "@/core/application/use-cases/user/CreateUserDTO";
+import { SignIn } from "@/core/application/use-cases/user/SignIn";
+import { InvalidCredentialsError, UserAlreadyExistsError, UserNotFoundError } from "@/core/domain/errors/UserError";
+import { validateWithZod } from "@/infrastructure/utils/zod-validation";
+import { badRequest, conflict, created, HttpResponse, ok, unauthorized } from "@/infrastructure/driving/http/Http";
+import { createUserSchema, signInSchema } from "@/infrastructure/driving/http/controllers/user/UserSchema";
 
 export class UserController {
     constructor(

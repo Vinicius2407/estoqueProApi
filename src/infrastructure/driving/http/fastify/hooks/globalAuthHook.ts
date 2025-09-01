@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { IJWT } from "../../../../../core/application/ports/out/jwt/IJWT";
-import { IJWTUserpayload } from "../../../../driven/services/JWTToken";
+import { IJWT } from "@/core/application/ports/out/jwt/IJWT";
+import { IJWTUserpayload } from "@/infrastructure/driven/services/JWTToken";
 
 export const makeGlobalAuthHook = (jwtService: IJWT) => {
     return async (request: FastifyRequest, reply: FastifyReply) => {

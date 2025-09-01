@@ -1,5 +1,5 @@
-import { IPasswordHasher } from "../../application/ports/out/password-hasher/IPasswordHasher";
-import { UserError } from "../errors/UserError";
+import { IPasswordHasher } from "@/core/application/ports/out/password-hasher/IPasswordHasher";
+import { UserError } from "@/core/domain/errors/UserError";
 
 type UserCreationProps = {
     name: string;

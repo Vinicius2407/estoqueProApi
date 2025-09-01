@@ -1,9 +1,9 @@
-import { InvalidCredentialsError, UserNotFoundError } from "../../../domain/errors/UserError";
-import { IJWT } from "../../ports/out/jwt/IJWT";
-import { IPasswordHasher } from "../../ports/out/password-hasher/IPasswordHasher";
-import { IUserRepository } from "../../ports/out/repositories/user/IUserRepository";
-import { IUseCase } from "../IUseCase";
-import { SignInInput, SignInOutput } from "./SignInDTO";
+import { InvalidCredentialsError, UserNotFoundError } from "@/core/domain/errors/UserError";
+import { IJWT } from "@/core/application/ports/out/jwt/IJWT";
+import { IPasswordHasher } from "@/core/application/ports/out/password-hasher/IPasswordHasher";
+import { IUserRepository } from "@/core/application/ports/out/repositories/user/IUserRepository";
+import { IUseCase } from "@/core/application/use-cases/IUseCase";
+import { SignInInput, SignInOutput } from "@/core/application/use-cases/user/SignInDTO";
 
 export class SignIn implements IUseCase<SignInInput, SignInOutput> {
     constructor(
