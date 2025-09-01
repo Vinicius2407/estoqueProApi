@@ -9,14 +9,12 @@ import { GetCategoryById } from "@/core/application/use-cases/category/GetCatego
 export class CategoryController {
     constructor(
         private readonly createCategoryUseCase: CreateCategory,
-        private readonly getCategoryByIdUseCase: GetCategoryById
-    ) { }
+        private readonly getCategoryByIdUseCase: GetCategoryById,
+    ) {}
     async create({ body }: FastifyRequest) {
-        if (!body)
-            return conflict({ message: "Objeto de cadastro obrigatório" });
+        if (!body) return conflict({ message: "Objeto de cadastro obrigatório" });
 
-        if (typeof body !== typeof createCategorySchema)
-            return conflict({ message: "Objeto enviado é invalido para cadastro!" });
+        if (typeof body !== typeof createCategorySchema) return conflict({ message: "Objeto enviado é invalido para cadastro!" });
 
         try {
             const { name } = await validateWithZod(createCategorySchema, body);
@@ -33,8 +31,7 @@ export class CategoryController {
     }
 
     async getById({ params }: FastifyRequest) {
-        if (!params)
-            return conflict({ message: "ID da categoria obrigatório" });
+        if (!params) return conflict({ message: "ID da categoria obrigatório" });
 
         const { id } = params as { id: string };
 
