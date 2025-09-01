@@ -3,8 +3,9 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon --exec ts-node --files index.ts",
+        "dev": "nodemon --exec tsx index.ts",
         "dev serverless": "serverless offline start --reloadHandler",
+        "build": "tsc",
         "start": "node dist/index.js",
         "format": "prettier --write .",
         "format:check": "prettier --check ."
