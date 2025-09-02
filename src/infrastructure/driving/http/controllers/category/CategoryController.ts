@@ -14,8 +14,8 @@ export class CategoryController {
     constructor(
         @inject("CreateCategory") private readonly createCategoryUseCase: CreateCategory,
         @inject("GetCategoryById") private readonly getCategoryByIdUseCase: GetCategoryById,
-        @inject("GetCategoryByName") private readonly getCategoryByNameUseCase: GetCategoryByName
-    ) { }
+        @inject("GetCategoryByName") private readonly getCategoryByNameUseCase: GetCategoryByName,
+    ) {}
 
     async create({ body }: FastifyRequest) {
         if (!body) return conflict({ message: "Objeto de cadastro obrigatório" });

@@ -8,9 +8,7 @@ import { CategoryRepository } from "@/infrastructure/driven/persistence/reposito
 
 @injectable()
 export class GetCategoryById implements IUseCase<GetCategoryInput, GetCategoryOutput> {
-    constructor(
-        @inject("CategoryRepository") private readonly categoryRepository: ICategoryRepository
-    ) { }
+    constructor(@inject("CategoryRepository") private readonly categoryRepository: ICategoryRepository) {}
 
     async execute({ id }: GetCategoryInput): Promise<GetCategoryOutput> {
         try {

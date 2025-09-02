@@ -25,17 +25,17 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
 ### Instalação
 
 1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/estoquepro.git
-   ```
+    ```bash
+    git clone https://github.com/seu-usuario/estoquepro.git
+    ```
 2. Navegue até o diretório da API:
-   ```bash
-   cd estoquepro/api
-   ```
+    ```bash
+    cd estoquepro/api
+    ```
 3. Instale as dependências:
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 4. Crie um arquivo `.env` na raiz do projeto, baseado no `.env.example`, e preencha as variáveis de ambiente necessárias.
 
 ### Configuração
@@ -90,11 +90,11 @@ Cria um novo usuário.
 
 ```json
 {
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "password": "password123",
-  "telephone": "11999999999",
-  "document": "12345678901"
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "password123",
+    "telephone": "11999999999",
+    "document": "12345678901"
 }
 ```
 
@@ -102,11 +102,11 @@ Cria um novo usuário.
 
 ```json
 {
-  "user": {
-    "id": "1",
-    "name": "John Doe",
-    "email": "john.doe@example.com"
-  }
+    "user": {
+        "id": "1",
+        "name": "John Doe",
+        "email": "john.doe@example.com"
+    }
 }
 ```
 
@@ -118,8 +118,8 @@ Autentica um usuário e retorna um token de acesso.
 
 ```json
 {
-  "email": "john.doe@example.com",
-  "password": "password123"
+    "email": "john.doe@example.com",
+    "password": "password123"
 }
 ```
 
@@ -127,7 +127,7 @@ Autentica um usuário e retorna um token de acesso.
 
 ```json
 {
-  "accessToken": "..."
+    "accessToken": "..."
 }
 ```
 
@@ -141,7 +141,7 @@ Cria uma nova categoria (requer autenticação).
 
 ```json
 {
-  "name": "Eletrônicos"
+    "name": "Eletrônicos"
 }
 ```
 
@@ -149,10 +149,10 @@ Cria uma nova categoria (requer autenticação).
 
 ```json
 {
-  "category": {
-    "id": 1,
-    "name": "Eletrônicos"
-  }
+    "category": {
+        "id": 1,
+        "name": "Eletrônicos"
+    }
 }
 ```
 
@@ -164,10 +164,10 @@ Obtém uma categoria pelo ID (requer autenticação).
 
 ```json
 {
-  "category": {
-    "id": 1,
-    "name": "Eletrônicos"
-  }
+    "category": {
+        "id": 1,
+        "name": "Eletrônicos"
+    }
 }
 ```
 
@@ -176,17 +176,17 @@ Obtém uma categoria pelo ID (requer autenticação).
 O projeto segue uma arquitetura limpa, dividida nas seguintes camadas:
 
 - `src/core`: Contém a lógica de negócio da aplicação, independente de frameworks.
-  - `application`: Define os casos de uso da aplicação e as interfaces (portas) para as camadas externas.
-    - `use-cases`: Implementação dos casos de uso (ex: `CreateUser`, `SignIn`).
-    - `ports`: Interfaces que definem os contratos para a camada de infraestrutura (ex: `IUserRepository`, `IJWT`).
-  - `domain`: Contém os modelos de domínio, entidades e regras de negócio.
-    - `models`: As classes de domínio (ex: `User`, `Category`).
-    - `errors`: Erros de negócio customizados.
+    - `application`: Define os casos de uso da aplicação e as interfaces (portas) para as camadas externas.
+        - `use-cases`: Implementação dos casos de uso (ex: `CreateUser`, `SignIn`).
+        - `ports`: Interfaces que definem os contratos para a camada de infraestrutura (ex: `IUserRepository`, `IJWT`).
+    - `domain`: Contém os modelos de domínio, entidades e regras de negócio.
+        - `models`: As classes de domínio (ex: `User`, `Category`).
+        - `errors`: Erros de negócio customizados.
 - `src/infrastructure`: Contém as implementações das portas e a configuração dos frameworks.
-  - `driven`: Adapters que implementam as portas de saída (outbound), conectando-se a serviços externos.
-    - `persistence`: Implementação dos repositórios para acesso ao banco de dados (ex: `UserRepository` com Drizzle).
-    - `services`: Implementação de outros serviços externos (ex: `JWTToken`, `PasswordHasher`).
-  - `driving`: Adapters que recebem as requisições (inbound) e invocam os casos de uso.
-    - `http`: Controllers, rotas e configuração do Fastify.
-  - `main`: Ponto de entrada da camada de infraestrutura, responsável pela inicialização e injeção de dependências.
+    - `driven`: Adapters que implementam as portas de saída (outbound), conectando-se a serviços externos.
+        - `persistence`: Implementação dos repositórios para acesso ao banco de dados (ex: `UserRepository` com Drizzle).
+        - `services`: Implementação de outros serviços externos (ex: `JWTToken`, `PasswordHasher`).
+    - `driving`: Adapters que recebem as requisições (inbound) e invocam os casos de uso.
+        - `http`: Controllers, rotas e configuração do Fastify.
+    - `main`: Ponto de entrada da camada de infraestrutura, responsável pela inicialização e injeção de dependências.
 - `src/index.ts`: Ponto de entrada da aplicação, onde o servidor é iniciado.

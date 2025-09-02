@@ -7,9 +7,7 @@ import { RepositoryError } from "@/core/domain/errors/RepositoryError";
 
 @injectable()
 export class GetCategoryByName implements IUseCase<GetCategoryInput, GetCategoryOutput[]> {
-    constructor(
-        @inject("CategoryRepository") private readonly categoryRepository: ICategoryRepository
-    ) { }
+    constructor(@inject("CategoryRepository") private readonly categoryRepository: ICategoryRepository) {}
 
     async execute({ name }: GetCategoryInput): Promise<GetCategoryOutput[]> {
         try {

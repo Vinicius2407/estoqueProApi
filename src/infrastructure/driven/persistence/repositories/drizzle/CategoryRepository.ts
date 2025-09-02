@@ -1,4 +1,4 @@
-import { eq, like, sql, } from "drizzle-orm";
+import { eq, like, sql } from "drizzle-orm";
 
 import { ICategoryRepository } from "@/core/application/ports/out/repositories/category/ICategoryRepository";
 import { Pagination } from "@/core/application/ports/out/repositories/IRepository";
@@ -46,14 +46,16 @@ export class CategoryRepository implements ICategoryRepository {
 
     async findById(id: number): Promise<Category | null> {
         try {
-            return await db.query.categoryTable.findFirst({
-                where: eq(categoryTable.id, id),
-            }).then((categoryDb) => {
-                if (!categoryDb) {
-                    return null;
-                }
-                return Category.recreate(categoryDb.id, categoryDb.name);
-            });
+            return await db.query.categoryTable
+                .findFirst({
+                    where: eq(categoryTable.id, id),
+                })
+                .then((categoryDb) => {
+                    if (!categoryDb) {
+                        return null;
+                    }
+                    return Category.recreate(categoryDb.id, categoryDb.name);
+                });
         } catch (error: any & { message: string }) {
             throw new RepositoryError(`Erro ao buscar categoria por ID: ${error.message}`);
         }

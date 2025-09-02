@@ -9,14 +9,11 @@ import { Category } from "@/core/domain/models/Category";
 
 @injectable()
 export class CreateCategory implements IUseCase<CreateCategoryInput, CreateCategoryOutput> {
-    constructor(
-        @inject("CategoryRepository") private readonly categoryRepository: ICategoryRepository
-    ) { }
+    constructor(@inject("CategoryRepository") private readonly categoryRepository: ICategoryRepository) {}
 
     async execute(input: CreateCategoryInput): Promise<CreateCategoryOutput> {
         try {
-            if (await this.categoryRepository.findByName(input.name) != null)
-                throw new CategoryDuplicateError(`${input.name}`);
+            if ((await this.categoryRepository.findByName(input.name)) != null) throw new CategoryDuplicateError(`${input.name}`);
 
             let category = Category.create(input.name);
 
