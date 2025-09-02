@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import "dotenv/config";
 
 import { FastifyServer } from "./src/infrastructure/driving/http/fastify/server";

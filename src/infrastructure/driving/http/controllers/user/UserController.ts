@@ -5,11 +5,13 @@ import { InvalidCredentialsError, UserAlreadyExistsError, UserNotFoundError } fr
 import { validateWithZod } from "@/infrastructure/utils/zod-validation";
 import { badRequest, conflict, created, HttpResponse, ok, unauthorized } from "@/infrastructure/driving/http/Http";
 import { createUserSchema, signInSchema } from "@/infrastructure/driving/http/controllers/user/UserSchema";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 export class UserController {
     constructor(
-        private readonly createUserUseCase: CreateUser,
-        private readonly signInUseCase: SignIn,
+        @inject(CreateUser) private readonly createUserUseCase: CreateUser,
+        @inject(SignIn) private readonly signInUseCase: SignIn,
     ) {}
 
     async create(body: any): Promise<HttpResponse> {
