@@ -1,11 +1,16 @@
+import { inject, injectable } from "tsyringe";
 
-import { RepositoryError } from "@/core/domain/errors/RepositoryError";
 import { ICategoryRepository } from "@/core/application/ports/out/repositories/category/ICategoryRepository";
 import { IUseCase } from "@/core/application/use-cases/IUseCase";
-import { GetCategoryInput, GetCategoryOutput } from "@/core/application/use-cases/category/GetCategoryByIdDTO";
+import { GetCategoryInput, GetCategoryOutput } from "@/core/application/use-cases/category/GetCategoryDTO";
+import { RepositoryError } from "@/core/domain/errors/RepositoryError";
 
+@injectable()
 export class GetCategoryByName implements IUseCase<GetCategoryInput, GetCategoryOutput[]> {
-    constructor(private readonly categoryRepository: ICategoryRepository) {}
+    constructor(
+        @inject("CategoryRepository") private readonly categoryRepository: ICategoryRepository
+    ) { }
+
     async execute({ name }: GetCategoryInput): Promise<GetCategoryOutput[]> {
         try {
             const category = await this.categoryRepository.findByName(name!);

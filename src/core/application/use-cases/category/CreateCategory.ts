@@ -1,3 +1,5 @@
+import { inject, injectable } from "tsyringe";
+
 import { ICategoryRepository } from "@/core/application/ports/out/repositories/category/ICategoryRepository";
 import { IUseCase } from "@/core/application/use-cases/IUseCase";
 import { CreateCategoryInput, CreateCategoryOutput } from "@/core/application/use-cases/category/CreateCategoryDTO";
@@ -5,8 +7,12 @@ import { CategoryDuplicateError } from "@/core/domain/errors/CategoryError";
 import { RepositoryError } from "@/core/domain/errors/RepositoryError";
 import { Category } from "@/core/domain/models/Category";
 
+@injectable()
 export class CreateCategory implements IUseCase<CreateCategoryInput, CreateCategoryOutput> {
-    constructor(private readonly categoryRepository: ICategoryRepository) {}
+    constructor(
+        @inject("CategoryRepository") private readonly categoryRepository: ICategoryRepository
+    ) { }
+
     async execute(input: CreateCategoryInput): Promise<CreateCategoryOutput> {
         try {
             if (await this.categoryRepository.findByName(input.name) != null)

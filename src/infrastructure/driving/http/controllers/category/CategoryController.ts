@@ -1,4 +1,5 @@
 import { FastifyRequest } from "fastify";
+import { inject, injectable } from "tsyringe";
 
 import { CreateCategory } from "@/core/application/use-cases/category/CreateCategory";
 import { GetCategoryById } from "@/core/application/use-cases/category/GetCategoryById";
@@ -8,11 +9,12 @@ import { conflict, created, ok } from "@/infrastructure/driving/http/Http";
 import { createCategorySchema } from "@/infrastructure/driving/http/controllers/category/CategorySchema";
 import { validateWithZod } from "@/infrastructure/utils/zod-validation";
 
+@injectable()
 export class CategoryController {
     constructor(
-        private readonly createCategoryUseCase: CreateCategory,
-        private readonly getCategoryByIdUseCase: GetCategoryById,
-        private readonly getCategoryByNameUseCase: GetCategoryByName
+        @inject("CreateCategory") private readonly createCategoryUseCase: CreateCategory,
+        @inject("GetCategoryById") private readonly getCategoryByIdUseCase: GetCategoryById,
+        @inject("GetCategoryByName") private readonly getCategoryByNameUseCase: GetCategoryByName
     ) { }
 
     async create({ body }: FastifyRequest) {
@@ -53,16 +55,4 @@ export class CategoryController {
 
         return ok({ categories });
     }
-
-
-    async getByName({ query }: FastifyRequest) {
-        if (!query) return conflict({ message: "Nome da categoria obrigatório" });
-
-        const { name } = query as { name: string };
-
-        var categories = await this.getCategoryByNameUseCase.execute({ name });
-
-        return ok({ categories });
-    }
-
 }
